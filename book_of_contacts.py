@@ -7,8 +7,8 @@
 # Выводить поиск контактов
 # Удаление контакта
 # Запись файла и считывание из файла
-#
-#
+# Удаление номера телефона
+# Изменение номера телефона
 
 
 contact_book = []
@@ -83,8 +83,10 @@ def deleting_of_contact():
         except IndexError:
             print("Контакта с таким индексом не существует")
 
-
-
+def writing_in_file():
+    with open('file1.txt', 'w') as fh:
+        for contact in contact_book:
+            fh.write(f"{contact['name']}, {contact['last_name']}, {contact['phone_number']} \n")
 
 
 if __name__ == '__main__':
@@ -94,4 +96,5 @@ if __name__ == '__main__':
     print(finding_of_contact('Ivan'))
     print(deleting_of_contact())
     print(contact_book)
+    writing_in_file()
 
