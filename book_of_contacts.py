@@ -19,10 +19,16 @@ def contact_writing(name='', last_name='', phone_number=''):
     dict_1 = {}
     name = big_letter_is(name)
     last_name = big_letter_is(last_name)
-    name = name if letter_is(name) else ' '
-    last_name = last_name if letter_is(last_name) else ' '
-    phone_number = phone_number if number_is(phone_number) else ' '
-    name = phone_number if name == ' ' and last_name == ' ' else name
+    name = name if letter_is(name) else '-'
+    if name == '':
+        name = '-'
+    last_name = last_name if letter_is(last_name) else '-'
+    if last_name == '':
+        last_name = '-'
+    phone_number = phone_number if number_is(phone_number) else '-'
+    if phone_number == '':
+        phone_number = '-'
+    name = phone_number if name == '-' and last_name == '-' else name
     dict_1.update({'name': name, 'last_name': last_name, 'phone_number': phone_number})
     contact_book.append(dict_1)
     return dict_1
@@ -50,11 +56,14 @@ def letter_is(name):
 
 
 def big_letter_is(name):
+    if name == '':
+        return name
     if name[0] == name[0].upper():
         return name
     else:
         first_letter = name[0].upper()
         return first_letter + name[1:]
+
 
 
 def finding_of_contact(dif_var):
@@ -88,6 +97,7 @@ def deleting_of_contact():
 def writing_in_file():
     with open('file1.txt', 'w') as fh:
         for contact in contact_book:
+            print(f"{contact['name']}, {contact['last_name']}, {contact['phone_number']} \n")
             fh.write(f"{contact['name']}, {contact['last_name']}, {contact['phone_number']} \n")
 
 
@@ -102,13 +112,14 @@ def reading_from_file():
 
 
 if __name__ == '__main__':
-    print(contact_writing(name="vasiliy", last_name='Petrov', phone_number='64865685'))
-    print(contact_writing(name="Ivan44", last_name='Ivanov44', phone_number='426246424'))
-    print(contact_writing(name="Ivan", last_name='ivanov', phone_number='4262d46424'))
-    print(finding_of_contact('Ivan'))
-    print(deleting_of_contact())
-    print(contact_book)
-    print(reading_from_file())
-    #writing_in_file()
+    print(f"Мы добавляем первый контакт {contact_writing(name='', last_name='Petrov', phone_number='64865685')}")
+    print(f"Мы добавляем второй контакт {contact_writing(name='Ivan', last_name='', phone_number='44829413')}")
+    print(f"Мы добавляем третий контакт {contact_writing(name='Egor', last_name='Egorov', phone_number='')}")
+    print(f"Мы ищем контакт Egor {finding_of_contact(dif_var='Egor')}")
+    print(f"Мы удаляем контакт {deleting_of_contact()}")
+    print(f"Выводим все контакты {contact_book}")
+    print(f"Записываем файл {writing_in_file()}")
+    print(f"Читаем из файла {reading_from_file()}")
+
 
 
