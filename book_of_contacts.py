@@ -110,6 +110,17 @@ def reading_from_file():
             contact_book_from_file.append({'name': name, 'last_name': last_name.strip(), 'phone_number': phone_number.strip()})
     return contact_book_from_file
 
+def deleting_of_phone_number():
+    for index, contact in enumerate(contact_book):
+        print(f'Контакт номер {index}: {contact}')
+    asking = int(input('У какого индекса вы хотите удалить номер телефона? '))
+    contact_book[asking]['phone_number'] = '-'
+    return contact_book[asking]
+
+
+
+
+
 
 if __name__ == '__main__':
     print(f"Мы добавляем первый контакт {contact_writing(name='', last_name='Petrov', phone_number='64865685')}")
@@ -117,9 +128,10 @@ if __name__ == '__main__':
     print(f"Мы добавляем третий контакт {contact_writing(name='Egor', last_name='Egorov', phone_number='')}")
     print(f"Мы ищем контакт Egor {finding_of_contact(dif_var='Egor')}")
     print(f"Мы удаляем контакт {deleting_of_contact()}")
-    print(f"Выводим все контакты {contact_book}")
     print(f"Записываем файл {writing_in_file()}")
     print(f"Читаем из файла {reading_from_file()}")
+    print(f'Удаляем номер телефона {deleting_of_phone_number()}')
+    print(f"Выводим все контакты {contact_book}")
 
 
 
