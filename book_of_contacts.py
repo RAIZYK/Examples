@@ -146,6 +146,42 @@ def deleting_of_name():
     except IndexError:
         return "Контакта с таким индексом не существует"
 
+def editing_of_name():
+    try:
+        for index, contact in enumerate(contact_book):
+            print(f'Контакт номер {index}: {contact}')
+        asking = int(input('У какого индекса вы хотите изменить имя? '))
+        if contact_book[asking]:
+            pass
+        new_name = input('Напишите новое имя ')
+        contact_book[asking]['name'] = new_name
+        return contact_book[asking]
+    except IndexError:
+        return "Контакта с таким индексом не существует"
+
+def deleting_of_last_name():
+    try:
+        for index, contact in enumerate(contact_book):
+            print(f'Контакт номер {index}: {contact}')
+        asking = int(input('У какого индекса вы хотите удалить фамилию? '))
+        contact_book[asking]['last_name'] = '-'
+        return contact_book[asking]
+    except IndexError:
+        return "Контакта с таким индексом не существует"
+
+def editing_of_last_name():
+    try:
+        for index, contact in enumerate(contact_book):
+            print(f'Контакт номер {index}: {contact}')
+        asking = int(input('У какого индекса вы хотите изменить фамилию? '))
+        if contact_book[asking]:
+            pass
+        new_last_name = input('Напишите новою фамилию ')
+        contact_book[asking]['last_name'] = new_last_name
+        return contact_book[asking]
+    except IndexError:
+        return "Контакта с таким индексом не существует"
+
 
 
 if __name__ == '__main__':
@@ -160,5 +196,8 @@ if __name__ == '__main__':
     print(f"Выводим все контакты {contact_book}")
     print(f"Изменяем номер телефона {editing_of_phone_number()}")
     print(f"Удаляем имя {deleting_of_name()}")
+    print(f"Удаляем фамилию {deleting_of_last_name()}")
+    print(f"Изменяем имя {editing_of_name()}")
+    print(f"Изменяем фамилию {editing_of_last_name()}")
 
 
