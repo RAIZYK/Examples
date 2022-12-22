@@ -10,6 +10,7 @@
 # Если не указано имя, фамилия или номер телефона, то мы ставим прочерк
 # Удаление номера телефона
 # Изменение номера телефона
+# Удаление и изменение для имени и фамилии
 
 
 contact_book = []
@@ -111,14 +112,39 @@ def reading_from_file():
     return contact_book_from_file
 
 def deleting_of_phone_number():
-    for index, contact in enumerate(contact_book):
-        print(f'Контакт номер {index}: {contact}')
-    asking = int(input('У какого индекса вы хотите удалить номер телефона? '))
-    contact_book[asking]['phone_number'] = '-'
-    return contact_book[asking]
+    try:
+        for index, contact in enumerate(contact_book):
+            print(f'Контакт номер {index}: {contact}')
+        asking = int(input('У какого индекса вы хотите удалить номер телефона? '))
+        contact_book[asking]['phone_number'] = '-'
+        return contact_book[asking]
+    except IndexError:
+        return "Контакта с таким индексом не существует"
 
 
 
+def editing_of_phone_number():
+    try:
+        for index, contact in enumerate(contact_book):
+            print(f'Контакт номер {index}: {contact}')
+        asking = int(input('У какого индекса вы хотите изменить номер телефона? '))
+        if contact_book[asking]:
+            pass
+        new_phone = int(input('Напишите новый номер телефона '))
+        contact_book[asking]['phone_number'] = new_phone
+        return contact_book[asking]
+    except IndexError:
+        return "Контакта с таким индексом не существует"
+
+def deleting_of_name():
+    try:
+        for index, contact in enumerate(contact_book):
+            print(f'Контакт номер {index}: {contact}')
+        asking = int(input('У какого индекса вы хотите удалить имя? '))
+        contact_book[asking]['name'] = '-'
+        return contact_book[asking]
+    except IndexError:
+        return "Контакта с таким индексом не существует"
 
 
 
@@ -132,6 +158,7 @@ if __name__ == '__main__':
     print(f"Читаем из файла {reading_from_file()}")
     print(f'Удаляем номер телефона {deleting_of_phone_number()}')
     print(f"Выводим все контакты {contact_book}")
-
+    print(f"Изменяем номер телефона {editing_of_phone_number()}")
+    print(f"Удаляем имя {deleting_of_name()}")
 
 
