@@ -12,9 +12,10 @@
 # Изменение номера телефона
 # Удаление и изменение для имени и фамилии
 # Обращаться к функции через командную строку
+# Добавить день рождения контакту
 # Считывать из файла все контакты при запуске программы
 # Записывать все контакты, когда мы заканчиваем программу
-# Добавить день рождения контакту
+
 
 contact_book = []
 
@@ -123,6 +124,9 @@ def deleting_of_phone_number():
         return contact_book[asking]
     except IndexError:
         return "Контакта с таким индексом не существует"
+    except ValueError:
+        return "Удалите номер телефона"
+
 
 
 
@@ -138,6 +142,8 @@ def editing_of_phone_number():
         return contact_book[asking]
     except IndexError:
         return "Контакта с таким индексом не существует"
+    except ValueError:
+        return "Измените номер телефона"
 
 def deleting_of_name():
     try:
@@ -148,6 +154,8 @@ def deleting_of_name():
         return contact_book[asking]
     except IndexError:
         return "Контакта с таким индексом не существует"
+    except ValueError:
+        return "Удалите имя"
 
 def editing_of_name():
     try:
@@ -161,6 +169,8 @@ def editing_of_name():
         return contact_book[asking]
     except IndexError:
         return "Контакта с таким индексом не существует"
+    except ValueError:
+        return "Измените имя"
 
 def deleting_of_last_name():
     try:
@@ -171,6 +181,8 @@ def deleting_of_last_name():
         return contact_book[asking]
     except IndexError:
         return "Контакта с таким индексом не существует"
+    except ValueError:
+        return "Удалите фамилию"
 
 def editing_of_last_name():
     try:
@@ -184,6 +196,8 @@ def editing_of_last_name():
         return contact_book[asking]
     except IndexError:
         return "Контакта с таким индексом не существует"
+    except ValueError:
+        return "Измените фамилию"
 
 
 def main(command, *params):
@@ -199,7 +213,7 @@ if __name__ == '__main__':
           "find - найти, \n"
           "show - показать,\n"
           "remove_param - удалить имя, фамилию или номер телефона, \n"
-          "edit_param - изменить имя, фамилию или номер телефона. \n "
+          "edit_param - изменить имя, фамилию или номер телефона. \n"
           "exit - выход из функции \n")
 
     while True:
@@ -210,51 +224,40 @@ if __name__ == '__main__':
             name_input = input("Введите имя: ").strip()
             last_name_input = input("Введите фамилию: ").strip()
             phone_number_input = input("Введите номер телефона: ").strip()
-            contact_writing(name_input, last_name_input, phone_number_input)
-            print(contact_book)
+            contact = contact_writing(name_input, last_name_input, phone_number_input)
+            print("Добавлен новый контакт")
+            print(f"Имя: {contact['name']}, \nФамилия: {contact['last_name']}, \nНомер телефона: {contact['phone_number']}")
         if asking_input == 'delete':
             deleting_of_contact()
         if asking_input == 'find':
             variable_input = input("Введите переменную (имя, фамилию или номер телефона): ").strip()
-            finding_of_contact(variable_input)
+            print(finding_of_contact(variable_input))
         if asking_input == 'writing_file':
             contact_writing()
         if asking_input == 'reading_file':
             reading_from_file()
         if asking_input == 'show':
-            print(contact_book)
+            for index, contact in enumerate(contact_book):
+                print(f"Контакт номер {index + 1}")
+                print(f"Имя: {contact['name']}, \nФамилия: {contact['last_name']}, \nНомер телефона: {contact['phone_number']}")
         if asking_input == 'remove_param':
             param_input = input("Что вы хотите удалить: имя, фамилию или номер телефона? ").strip()
             if param_input == 'name':
-                deleting_of_name()
+                print(deleting_of_name())
             if param_input == 'last_name':
-                deleting_of_last_name()
+                print(deleting_of_last_name())
             if param_input == 'phone_number':
-                deleting_of_phone_number()
+                print(deleting_of_phone_number())
         if asking_input == 'edit_param':
             param_edit = input("Что вы хотите изменить: имя, фамилию или номер телефона? ").strip()
             if param_edit == 'name':
-                editing_of_name()
+                print(editing_of_name())
             if param_edit == 'last_name':
-                editing_of_last_name()
+                print(editing_of_last_name())
             if param_edit == 'phone_number':
-                editing_of_phone_number()
+                print(editing_of_phone_number())
 
 
 
-    # print(f"Мы добавляем первый контакт {contact_writing(name='', last_name='Petrov', phone_number='64865685')}")
-    # print(f"Мы добавляем второй контакт {contact_writing(name='Ivan', last_name='', phone_number='44829413')}")
-    # print(f"Мы добавляем третий контакт {contact_writing(name='Egor', last_name='Egorov', phone_number='')}")
-    # print(f"Мы ищем контакт Egor {finding_of_contact(dif_var='Egor')}")
-    # print(f"Мы удаляем контакт {deleting_of_contact()}")
-    # print(f"Записываем файл {writing_in_file()}")
-    # print(f"Читаем из файла {reading_from_file()}")
-    # print(f'Удаляем номер телефона {deleting_of_phone_number()}')
-    # print(f"Выводим все контакты {contact_book}")
-    # print(f"Изменяем номер телефона {editing_of_phone_number()}")
-    # print(f"Удаляем имя {deleting_of_name()}")
-    # print(f"Удаляем фамилию {deleting_of_last_name()}")
-    # print(f"Изменяем имя {editing_of_name()}")
-    # print(f"Изменяем фамилию {editing_of_last_name()}")
 
 
