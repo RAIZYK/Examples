@@ -1,3 +1,2 @@
--, Petrov, 64865685 
-Ivan, -, 44829413 
-Egor, Egorov, - 
+Vasiliy, Ivanov, 35222222 
+egor, Egorov, 22222222 

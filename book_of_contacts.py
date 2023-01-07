@@ -102,7 +102,6 @@ def deleting_of_contact():
 def writing_in_file():
     with open('file1.txt', 'w') as fh:
         for contact in contact_book:
-            print(f"{contact['name']}, {contact['last_name']}, {contact['phone_number']} \n")
             fh.write(f"{contact['name']}, {contact['last_name']}, {contact['phone_number']} \n")
 
 
@@ -215,10 +214,14 @@ if __name__ == '__main__':
           "remove_param - удалить имя, фамилию или номер телефона, \n"
           "edit_param - изменить имя, фамилию или номер телефона. \n"
           "exit - выход из функции \n")
+    contact_book = reading_from_file()
+    if reading_from_file() == []:
+        print("Нет записанных контактов")
 
     while True:
         asking_input = input("Введите команду: ").strip()
         if asking_input == 'exit':
+            writing_in_file()
             break
         if asking_input == 'add':
             name_input = input("Введите имя: ").strip()
@@ -256,6 +259,8 @@ if __name__ == '__main__':
                 print(editing_of_last_name())
             if param_edit == 'phone_number':
                 print(editing_of_phone_number())
+
+
 
 
 
