@@ -213,6 +213,8 @@ if __name__ == '__main__':
           "show - показать,\n"
           "remove_param - удалить имя, фамилию или номер телефона, \n"
           "edit_param - изменить имя, фамилию или номер телефона. \n"
+          "save - сохранить файл \n"
+          "load - загрузить файл \n"
           "exit - выход из функции \n")
     contact_book = reading_from_file()
     if reading_from_file() == []:
@@ -223,6 +225,10 @@ if __name__ == '__main__':
         if asking_input == 'exit':
             writing_in_file()
             break
+        if asking_input == 'save':
+            writing_in_file()
+        if asking_input == 'load':
+            contact_book = reading_from_file()
         if asking_input == 'add':
             name_input = input("Введите имя: ").strip()
             last_name_input = input("Введите фамилию: ").strip()
