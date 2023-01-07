@@ -20,24 +20,26 @@
 contact_book = []
 
 
-def contact_writing(name='', last_name='', phone_number=''):
+def contact_writing(name='', last_name='', phone_number='', birthday=''):
     dict_1 = {}
     name = big_letter_is(name)
     last_name = big_letter_is(last_name)
     name = name if letter_is(name) else '-'
-    if name == '':
-        name = '-'
+    name = filling_of_empty(name)
     last_name = last_name if letter_is(last_name) else '-'
-    if last_name == '':
-        last_name = '-'
+    last_name = filling_of_empty(last_name)
     phone_number = phone_number if number_is(phone_number) else '-'
-    if phone_number == '':
-        phone_number = '-'
+    phone_number = filling_of_empty(phone_number)
     name = phone_number if name == '-' and last_name == '-' else name
-    dict_1.update({'name': name, 'last_name': last_name, 'phone_number': phone_number})
+    birthday = filling_of_empty(birthday)
+    dict_1.update({'name': name, 'last_name': last_name, 'phone_number': phone_number, 'birthday': birthday})
     contact_book.append(dict_1)
     return dict_1
 
+def filling_of_empty(var):
+    if var == '':
+        var = '-'
+    return var
 
 def find_contacts(val):
     for contact in contact_book:
@@ -102,7 +104,7 @@ def deleting_of_contact():
 def writing_in_file():
     with open('file1.txt', 'w') as fh:
         for contact in contact_book:
-            fh.write(f"{contact['name']}, {contact['last_name']}, {contact['phone_number']} \n")
+            fh.write(f"{contact['name']}, {contact['last_name']}, {contact['phone_number']}, {contact['birthday']} \n")
 
 
 def reading_from_file():
@@ -198,6 +200,33 @@ def editing_of_last_name():
     except ValueError:
         return "Измените фамилию"
 
+def editing_of_birthday():
+    try:
+        for index, contact in enumerate(contact_book):
+            print(f'Контакт номер {index}: {contact}')
+        asking = int(input('У какого индекса вы хотите изменить День рождения? '))
+        if contact_book[asking]:
+            pass
+        new_birthday = input('Напишите новый День рождения ')
+        contact_book[asking]['birthday'] = new_birthday
+        return contact_book[asking]
+    except IndexError:
+        return "Контакта с таким индексом не существует"
+    except ValueError:
+        return "Измените день рождения"
+
+def deleting_of_birthday():
+    try:
+        for index, contact in enumerate(contact_book):
+            print(f'Контакт номер {index}: {contact}')
+        asking = int(input('У какого индекса вы хотите удалить День рождения? '))
+        contact_book[asking]['birthday'] = '-'
+        return contact_book[asking]
+    except IndexError:
+        return "Контакта с таким индексом не существует"
+    except ValueError:
+        return "Удалите День рождения"
+
 
 def main(command, *params):
     if command == 'add':
@@ -233,9 +262,10 @@ if __name__ == '__main__':
             name_input = input("Введите имя: ").strip()
             last_name_input = input("Введите фамилию: ").strip()
             phone_number_input = input("Введите номер телефона: ").strip()
-            contact = contact_writing(name_input, last_name_input, phone_number_input)
+            birthday_input = input("Введите день рождения: ").strip()
+            contact = contact_writing(name_input, last_name_input, phone_number_input, birthday_input)
             print("Добавлен новый контакт")
-            print(f"Имя: {contact['name']}, \nФамилия: {contact['last_name']}, \nНомер телефона: {contact['phone_number']}")
+            print(f"Имя: {contact['name']}, \nФамилия: {contact['last_name']}, \nНомер телефона: {contact['phone_number']} \nДень Рождения: {contact['birthday']}")
         if asking_input == 'delete':
             deleting_of_contact()
         if asking_input == 'find':
@@ -248,23 +278,27 @@ if __name__ == '__main__':
         if asking_input == 'show':
             for index, contact in enumerate(contact_book):
                 print(f"Контакт номер {index + 1}")
-                print(f"Имя: {contact['name']}, \nФамилия: {contact['last_name']}, \nНомер телефона: {contact['phone_number']}")
+                print(f"Имя: {contact['name']}, \nФамилия: {contact['last_name']}, \nНомер телефона: {contact['phone_number']}, \nДень рождения: {contact['birthday']}")
         if asking_input == 'remove_param':
-            param_input = input("Что вы хотите удалить: имя, фамилию или номер телефона? ").strip()
+            param_input = input("Что вы хотите удалить: имя, фамилию, номер телефона или День рождения? ").strip()
             if param_input == 'name':
                 print(deleting_of_name())
             if param_input == 'last_name':
                 print(deleting_of_last_name())
             if param_input == 'phone_number':
                 print(deleting_of_phone_number())
+            if param_input == 'birthday':
+                print(deleting_of_birthday())
         if asking_input == 'edit_param':
-            param_edit = input("Что вы хотите изменить: имя, фамилию или номер телефона? ").strip()
+            param_edit = input("Что вы хотите изменить: имя, фамилию, номер телефона или День рождения? ").strip()
             if param_edit == 'name':
                 print(editing_of_name())
             if param_edit == 'last_name':
                 print(editing_of_last_name())
             if param_edit == 'phone_number':
                 print(editing_of_phone_number())
+            if param_edit == "birthday":
+                print(editing_of_birthday())
 
 
 
