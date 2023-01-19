@@ -91,9 +91,9 @@ def big_letter_is(name):
 
 
 
-def finding_of_contact(dif_var):
+def finding_of_contact(dif_var, contact_book_1):
     finded_contacts = []
-    for contact in contact_book:
+    for contact in contact_book_1:
         for dif_variable in contact.values():
             if dif_variable == dif_var:
                 finded_contacts.append(contact)
@@ -283,8 +283,8 @@ def main(contact_book_1):
         if asking_input == 'delete':
             deleting_of_contact(contact_book_1)
         if asking_input == 'find':
-            variable_input = input("Введите переменную (имя, фамилию или номер телефона): ").strip()
-            print(finding_of_contact(variable_input))
+            variable_input = input("Введите имя, фамилию, номер телефона или День рождения человека): ").strip()
+            print(finding_of_contact(variable_input, contact_book_1))
         if asking_input == 'writing_file':
             contact_writing()
         if asking_input == 'reading_file':
