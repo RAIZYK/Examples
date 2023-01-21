@@ -1,4 +1,5 @@
 from datetime import datetime
+
 # Создать книгу контактов. Контакт содержит имя, фамилию и номер телефона.
 # Мы можем записывать новый контакт и выводить уже существующий контакт.
 # Мы должны проверять что бы в номере телефона были только цифры, а в имени человека и фамилии были только буквы.
@@ -17,6 +18,7 @@ from datetime import datetime
 # Считывать из файла все контакты при запуске программы
 # Записывать все контакты, когда мы заканчиваем программу
 # Два и более телефона у одного контакта
+# Добавить функцию help
 
 contact_book = []
 
@@ -38,6 +40,7 @@ def contact_writing(name='', last_name='', phone_number='', birthday=''):
     contact_book.append(dict_1)
     return dict_1
 
+
 def check_birthday(birthday):
     try:
         current_datetime = datetime.now()
@@ -58,6 +61,7 @@ def filling_of_empty(var):
     if var == '':
         var = '-'
     return var
+
 
 def find_contacts(val):
     for contact in contact_book:
@@ -90,7 +94,6 @@ def big_letter_is(name):
         return first_letter + name[1:]
 
 
-
 def finding_of_contact(dif_var, contact_book_1):
     finded_contacts = []
     for contact in contact_book_1:
@@ -102,7 +105,6 @@ def finding_of_contact(dif_var, contact_book_1):
 
 
 def deleting_of_contact(contact_book_1):
-
     while True:
         try:
 
@@ -110,7 +112,7 @@ def deleting_of_contact(contact_book_1):
                 print(f'Контакт номер {index}: {contact}')
             inp_index = int(input("Введите индекс контакта, который хотите удалить, если хотите выйти, напишите -1: "))
             if inp_index == -1:
-                return("Изменения внесены в базу")
+                return ("Изменения внесены в базу")
             ind_pop = contact_book_1.pop(inp_index)
             print(contact_book_1)
         except ValueError:
@@ -131,8 +133,11 @@ def reading_from_file():
         for contact in fh.readlines():
             contact = contact.replace('\n', '')
             name, last_name, phone_number, birthday = contact.split(',')
-            contact_book_from_file.append({'name': name, 'last_name': last_name.strip(), 'phone_number': phone_number.strip(), 'birthday': birthday})
+            contact_book_from_file.append(
+                {'name': name, 'last_name': last_name.strip(), 'phone_number': phone_number.strip(),
+                 'birthday': birthday})
     return contact_book_from_file
+
 
 def deleting_of_phone_number(contact_book_1):
     try:
@@ -145,8 +150,6 @@ def deleting_of_phone_number(contact_book_1):
         return "Контакта с таким индексом не существует"
     except ValueError:
         return "Удалите номер телефона"
-
-
 
 
 def editing_of_phone_number(contact_book_1):
@@ -164,6 +167,7 @@ def editing_of_phone_number(contact_book_1):
     except ValueError:
         return "Измените номер телефона"
 
+
 def deleting_of_name(contact_book_1):
     try:
         for index, contact in enumerate(contact_book_1):
@@ -175,6 +179,7 @@ def deleting_of_name(contact_book_1):
         return "Контакта с таким индексом не существует"
     except ValueError:
         return "Удалите имя"
+
 
 def editing_of_name(contact_book_1):
     try:
@@ -191,6 +196,7 @@ def editing_of_name(contact_book_1):
     except ValueError:
         return "Измените имя"
 
+
 def deleting_of_last_name(contact_book_1):
     try:
         for index, contact in enumerate(contact_book_1):
@@ -202,6 +208,7 @@ def deleting_of_last_name(contact_book_1):
         return "Контакта с таким индексом не существует"
     except ValueError:
         return "Удалите фамилию"
+
 
 def editing_of_last_name(contact_book_1):
     try:
@@ -218,6 +225,7 @@ def editing_of_last_name(contact_book_1):
     except ValueError:
         return "Измените фамилию"
 
+
 def editing_of_birthday(contact_book_1):
     try:
         for index, contact in enumerate(contact_book_1):
@@ -233,6 +241,7 @@ def editing_of_birthday(contact_book_1):
     except ValueError:
         return "Измените день рождения"
 
+
 def deleting_of_birthday(contact_book_1):
     try:
         for index, contact in enumerate(contact_book_1):
@@ -246,23 +255,31 @@ def deleting_of_birthday(contact_book_1):
         return "Удалите День рождения"
 
 
+def help():
+    help_s = ("Существуют такие команды: \n"
+              "add - добавить, \n"
+              "delete - удалить, \n"
+              "find - найти, \n"
+              "show - показать,\n"
+              "remove_param - удалить имя, фамилию или номер телефона, \n"
+              "edit_param - изменить имя, фамилию или номер телефона. \n"
+              "save - сохранить файл \n"
+              "load - загрузить файл \n"
+              "exit - выход из функции \n"
+              "help - список команд")
+    return help_s
+
+
 def main(contact_book_1):
-    print("Существуют такие команды: \n"
-          "add - добавить, \n"
-          "delete - удалить, \n"
-          "find - найти, \n"
-          "show - показать,\n"
-          "remove_param - удалить имя, фамилию или номер телефона, \n"
-          "edit_param - изменить имя, фамилию или номер телефона. \n"
-          "save - сохранить файл \n"
-          "load - загрузить файл \n"
-          "exit - выход из функции \n")
+    print(help())
     contact_book_1 = reading_from_file()
     if reading_from_file() == []:
         print("Нет записанных контактов")
 
     while True:
         asking_input = input("Введите команду: ").strip()
+        if asking_input == "help":
+            print(help())
         if asking_input == 'exit':
             writing_in_file(contact_book_1)
             break
@@ -316,9 +333,7 @@ def main(contact_book_1):
                 print(editing_of_birthday(contact_book_1))
 
 
-
 if __name__ == '__main__':
-
     contact_book = []
     main(contact_book)
     # print(contact_book)
@@ -329,10 +344,3 @@ if __name__ == '__main__':
     # contact = contact_writing(name_input, last_name_input, phone_number_input, birthday_input)
     # print(contact)
     # print(contact_book)
-
-
-
-
-
-
-
